@@ -1,0 +1,48 @@
+User Navigational Scenario
+
+- User navigates to the URL and land in Landing Page and clicks sign up
+- User fills the details and completed sign up page and clicks submit
+
+- User land in Homepage
+- User will see an empty sections
+- User click on collapsable menu and select Profile page.
+
+- User lands on Profile page.
+
+  - User can click the profile photo (empty by default) and upload an image.
+
+  - User click "Add my Goal"
+  - User fill up the "Goal Details Page" (need to add this page newly)
+  - User comes back to the profile page and now he will be able to see Goal Card and Goal Progress.
+  - User will also be able to see Edit my goal enabled
+
+  - User click "Edit my Goal"
+  - User land in "Goal Details page"
+  - Update the goad details and click save/submit
+  - User comes back to the profile page and he will be able to see the updated profile page.
+
+- User click on collapsable menu and select Homepage
+- User land in homepage
+- User able to see new details (Photo, Goal card, and other details)
+- User click on collapsable menu and select "Food Tracker"
+
+- User Land in "Food Tracker" Page
+- User able to see "IdealCalorie" need section alone but rest all will be empty
+
+- User should be able to click "add entry"
+  - where a small popup window with date, time, Item name, Serving size, calorie" and click submit
+- Now details will be saved in Food tracker page and will update the Calorie Consumed so far oin the top section
+
+Database & API
+
+User information
+POST
+Retrieve
+Goal details
+POST
+Retrieve
+Food details
+POST ( food name, serving size, calories)
+Retrieve (food name, serving size, calories)
+
+1.
