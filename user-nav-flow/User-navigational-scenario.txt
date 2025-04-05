@@ -33,6 +33,8 @@ User Navigational Scenario
   - where a small popup window with date, time, Item name, Serving size, calorie" and click submit
 - Now details will be saved in Food tracker page and will update the Calorie Consumed so far oin the top section
 
+- User will be able to select a date from past and see what are all consume and how many calories.
+
 Database & API
 
 User information
