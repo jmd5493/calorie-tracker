@@ -4,18 +4,102 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Team Introduction</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 40px;
+        background-color: #fdfdfd;
+        line-height: 1.6;
+      }
+      html,
+      body {
+        min-height: 100vh;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      nav {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      nav a {
+        margin: 0 10px;
+        text-decoration: none;
+        color: #007bff;
+      }
+
+      nav a:hover {
+        text-decoration: underline;
+      }
+
+      ul {
+        list-style-type: none;
+        padding-left: 0;
+      }
+
+      li.team-member {
+        background-color: #f2f2f2;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-left: 5px solid #007bff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+
+      li.team-member strong {
+        font-size: 1.2em;
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .email {
+        margin-top: 5px;
+      }
+    </style>
   </head>
   <body>
     <h1>Team Introduction</h1>
+
     <nav>
       <a href="team.html">Team</a> | <a href="motivation.html">Motivation</a> |
       <a href="contents.html">Contents</a>
     </nav>
+
     <p>Welcome to our project! Meet the team:</p>
+
     <ul>
-      <li><strong>Nagaraja Kumarasamy</strong></li>
-      <li><strong>James Davis</strong></li>
-      <li><strong>Wesley Williams</strong></li>
+      <li class="team-member">
+        <strong>Nagaraja Kumarasamy</strong>
+        <p class="email">
+          Email:
+          <a href="mailto:kumarasamyn24@students.ecu.edu"
+            >kumarasamyn24@students.ecu.edu</a
+          >
+        </p>
+      </li>
+
+      <li class="team-member">
+        <strong>James Davis</strong>
+        <p class="email">
+          Email:
+          <a href="mailto:davisjam17@students.ecu.edu"
+            >davisjam17@students.ecu.edu</a
+          >
+        </p>
+      </li>
+
+      <li class="team-member">
+        <strong>Wesley Williams</strong>
+        <p class="email">
+          Email:
+          <a href="mailto:williamsw16@students.ecu.edu"
+            >williamsw16@students.ecu.edu</a
+          >
+        </p>
+      </li>
     </ul>
   </body>
 </html>
