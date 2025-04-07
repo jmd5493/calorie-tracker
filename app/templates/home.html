@@ -1,4 +1,79 @@
-{% extends "base.html" %} {% block title %}Page Title Here{% endblock %} {%
-block content %}
-<!-- content goes here -->
+{% extends "base.html" %} {% block title %}Homepage{% endblock %} {% block
+content %}
+<div class="container mt-4">
+  <!-- Welcome Heading -->
+  <div class="text-center mb-4">
+    <h2>Welcome to Calorie Tracker</h2>
+  </div>
+
+  <div class="row">
+    <!-- Left Column -->
+    <div class="col-md-4">
+      <div class="text-center mb-3">
+        <img
+          src="{{ url_for('static', filename='images/profile_pic.png') }}"
+          alt="Profile"
+          class="img-fluid rounded-circle"
+          width="120"
+        />
+      </div>
+
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5><strong>Goals:</strong></h5>
+          <p>Bulk up</p>
+          <p><strong>Target Date:</strong> 6/30/25</p>
+          <p><strong>Days Left:</strong> 87</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <!-- Placeholder for chart -->
+          <h6 class="text-center">Progress Chart</h6>
+          <div style="height: 100px; background-color: black"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="col-md-8">
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5><strong>Daily Intake:</strong></h5>
+              <p><strong>Allotted:</strong> 2000</p>
+              <p><strong>Consumed:</strong> 1250</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div
+              class="card-body d-flex align-items-center justify-content-center"
+            >
+              <blockquote class="blockquote text-center mb-0">
+                <p>
+                  "Whether you believe you can or you believe you can't, you are
+                  always right."
+                </p>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h5><strong>Food Log:</strong></h5>
+          <p>08:30 AM - Choc. Almond Milk - 90 cal</p>
+          <p>10:00 AM - Avocado toast - 290 cal</p>
+          <p>12:00 PM - Chicken Rice Bowl - 600 cal</p>
+          <p>04:00 PM - Coffee - 0 cal</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
