@@ -66,7 +66,7 @@ git push origin main
 
 ---
 
-## ⚔️ 6. If You Get a Merge Conflict
+## 6. If You Get a Merge Conflict
 
 Git will show you what files are conflicting. Open the files and look for:
 
