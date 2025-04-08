@@ -6,17 +6,10 @@ This is a web-based calorie tracking application built using **Flask**, **HTML/C
 
 ## 🚀 Features
 
-<<<<<<< HEAD
-
-- ✅ User registration & login
-- ✅ Personalized homepage with progress overview
-- ✅ Food log & daily calorie tracking
-- # ✅ Profile management
 - ✅ User registration & login
 - ✅ Personalized homepage with progress overview
 - ✅ Food log & daily calorie tracking
 - ✅ Profile management
-  > > > > > > > 533399aabb9b8568676fe20d9de83b43bc43c7c5
 - ✅ Clean responsive layout using Bootstrap
 - ✅ Organized codebase with Flask blueprints
 
@@ -24,22 +17,7 @@ This is a web-based calorie tracking application built using **Flask**, **HTML/C
 
 ## 📁 Project Structure
 
-```
-calorie-tracker/
-├── app/
-│   ├── __init__.py
-│   ├── routes.py
-│   ├── templates/
-│   ├── static/
-│   └── models.py (optional)
-├── database/
-│   └── calorie.db (or similar)
-├── run.py
-├── requirements.txt
-└── README.md
-```
-
----
+TBD
 
 ## 💡 Development Setup
 
@@ -72,12 +50,6 @@ git push
 
 ---
 
-<<<<<<< HEAD
-
-=======
-
-> > > > > > > 533399aabb9b8568676fe20d9de83b43bc43c7c5
-
 ## 📌 To Run the App Locally
 
 ```bash
@@ -98,9 +70,3 @@ Then open your browser to `http://localhost:5000`
 - jQuery
 
 ---
-
-<<<<<<< HEAD
-
-=======
-
-> > > > > > > 533399aabb9b8568676fe20d9de83b43bc43c7c5
