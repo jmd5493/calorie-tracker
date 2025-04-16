@@ -1,4 +1,5 @@
-class Config:
-    SECRET_KEY = 'your_secret_key'
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///calorie_tracker.db'
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+import os
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'calorie_tracker.db')
+SQLALCHEMY_TRACK_MODIFICATIONS = False
