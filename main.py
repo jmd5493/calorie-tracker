@@ -48,6 +48,23 @@ def profile():
 def tracker():
     return render_template("tracker.html")
 
+@app.route("/test-db")
+def test_db():
+    entries = FoodEntry.query.all()
+    output = "<h2>Food Entries:</h2>"
+    for e in entries:
+        output += f"<p>{e.food_name} - {e.calories} cal</p>"
+    return output
+
+# @app.route("/reset-db")
+# def reset_db():
+#     # Delete everything from both tables
+#     FoodEntry.query.delete()
+#     Goal.query.delete()
+#     db.session.commit()
+#     return "<h3>✅ All data wiped from FoodEntry and Goal tables.</h3>"
+
+
 # ---------- ENTRY POINT ----------
 if __name__ == '__main__':
     app.run(debug=True)
