@@ -1,4 +1,88 @@
-{% extends "base.html" %} {% block title %}Page Title Here{% endblock %} {%
-block content %}
-<!-- content goes here -->
+{% extends "base.html" %} {% block title %}Homepage{% endblock %} {% block
+content %}
+<!-- Main Content -->
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h5>Daily Allotted Calories: 2000</h5>
+      <h5>Calories Consumed: 1800</h5>
+    </div>
+    <div class="col">
+      <!-- 2 of 2 -->
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <!-- 1 of 3 -->
+    </div>
+    <div class="col">
+      <!-- 2 of 3 -->
+    </div>
+    <div class="col">
+      <!-- Button trigger modal -->
+      <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Entry</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h5>Food Entries</h5>
+        <table>
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Food</th>
+              <th>Calories</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for d in data %}
+            <tr>
+              <td>{{d.user_id}}</td>
+              <td>{{d.food_name}}</td>
+              <td>{{d.calories}}</td>
+              <td>{{d.date}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+   		
+
+
+		<!-- Add Entry -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  			<div class="modal-dialog">
+    			<div class="modal-content">
+      				<div class="modal-header">
+        				<h5 class="modal-title" id="exampleModalLabel">Add Food Item</h5>
+        				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      				</div>
+      				<div class="modal-body">
+      					<form>
+                  <div class="form-group">
+                    <label for="the_date">Date:</label>
+                    <input type="date" class="form-control" id=the_date placeholder="Enter Date">
+                  </div>
+      						<div class="form-group">
+      							<label for="ItemName">Item Name:</label>
+      							<input type="text" class="form-control" id=ItemName placeholder="Enter Food">
+      						</div>
+      						<div class="form-group">
+      							<label for="Calories">Calories:</label>
+      							<input type="number" class="form-control" id=Calories placeholder="Enter calories">
+      						</div>
+      					</form>
+      				</div>
+      				<div class="modal-footer">
+        				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        				<button type="button" class="btn btn-primary">Submit</button>
+      				</div>
+    			</div>
+  			</div>
+		</div>
 {% endblock %}
+

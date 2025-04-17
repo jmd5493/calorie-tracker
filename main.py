@@ -1,7 +1,8 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date
 import os
+import sqlite3
 
 app = Flask(__name__)
 config_path = os.path.join(os.path.dirname(__file__), "config.py")
@@ -22,6 +23,9 @@ class FoodEntry(db.Model):
     food_name = db.Column(db.String(100))
     calories = db.Column(db.Integer)
     date = db.Column(db.Date)
+
+    def __repr__(self):
+        return f"ID: {self.id}, User: {self.user_id}, Food: {self.food_name}, Calories: {self.calories}, Date: {self.date}"
 
 # ---------- ROUTES ----------
 @app.route("/")
@@ -44,9 +48,14 @@ def home():
 def profile():
     return render_template("profile.html")
 
-@app.route("/tracker")
+@app.route("/tracker", methods=['GET'])
 def tracker():
-    return render_template("tracker.html")
+    conn = sqlite3.connect('calorie_tracker.db')
+    cursor = conn.cursor()
+    cursor.execute("Select * FROM food_entry")
+    data = cursor.fetchall()
+    conn.close()
+    return render_template("tracker.html", data=data)
 
 @app.route("/test-db")
 def test_db():
