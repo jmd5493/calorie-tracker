@@ -9,7 +9,12 @@ block content %}
 
     <div class="col-sm-4">
       <div class="card text-center">
-        <img src="src/snoopy.jpg" alt="Profile" class="profile-img">
+
+{#        <img src="static/images/snoopy.jpg" alt="Profile" class="profile-img">#}
+          <div class="card-header">Profile Image</div>
+          <div class="profile-img">
+            src="{{ url_for('static', filename='images/snoopy.jpg') }}"
+              </div>
       </div>
     </div>
 
