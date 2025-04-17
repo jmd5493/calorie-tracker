@@ -1,7 +1,14 @@
+
+
 # 🥗 Calorie Tracker Web App
 
 This is a web-based calorie tracking application built using **Flask**, **HTML/CSS**, **JavaScript**, and **Bootstrap**. It allows users to track their meals, monitor progress, and manage their profile goals.
 
+---
+## Team Members
+- [Nagaraja Kumarasamy](mailto:kumarasamyn24@students.ecu.edu)
+- [James Davis](mailto:davisjam17@students.ecu.edu)
+- [Wesley Williams](mailto:williamsw16@students.ecu.edu)
 ---
 
 ## 🚀 Features
