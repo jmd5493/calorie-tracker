@@ -4,7 +4,8 @@ from datetime import date
 import os
 import sqlite3
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
+
 config_path = os.path.join(os.path.dirname(__file__), "config.py")
 app.config.from_pyfile(config_path)
 db = SQLAlchemy(app)
@@ -47,6 +48,10 @@ def home():
 @app.route("/profile")
 def profile():
     return render_template("profile.html")
+
+@app.route('/edit_goal')
+def edit_goal():
+    return render_template('AddEditGoal.html')
 
 @app.route("/tracker", methods=['GET'])
 def tracker():

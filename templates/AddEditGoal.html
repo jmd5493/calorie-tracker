@@ -1,57 +1,76 @@
 {% extends "base.html" %} {% block title %}Page Title Here{% endblock %} {%
 block content %}
 <!-- content goes here -->
+  <script>
+  $(document).ready(function (){
+    // Add event listener to the button
+    document.getElementById('saveGoalButton').addEventListener('click', function (event) {
+        console.log("Button clicked");
+        // Prevent default action to avoid interference
+        event.preventDefault();
 
-<div class="container" style="background-color:#87CEFA;">
-    <br>
-  <!-- First Row: Profile Image, Details, Goal -->
-  <div class="row row-flex">
+        // Perform validation for the target_date_input
+        const dateInput = document.getElementById("target_date_input").value;
+        const regex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}$/;
 
-    <div class="col-sm-4">
-      <div class="card text-center">
+        if (!regex.test(dateInput)) {
+            // Alert user if the date is invalid
+            alert("Invalid date format! Use MM/DD/YYYY.");
+        } else {
+            console.log("Save button clicked!");
+            window.location.href = "/profile";
+        }
+    });
+  });
+  </script>
+ <div class="container" style="background-color:#87CEFA;">
+      <br>
+      <!-- First Row: Profile Image, Details, Goal -->
+      <div class="row row-flex">
+        <div class="col-sm-4">
+          <div class="card text-center">
+            <img src="{{ url_for('static', filename='images/snoopy.jpg') }}" alt="Profile" class="profile-img">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card text-center">
+            <div class="card-header">Profile Details</div>
+            <br><br>
+              <div class="text-left">
+                <form>
+                  <label for="name_input">Enter your name -</label>
+                  <input type="text" id="name_input" required>
+                  <br><br>
 
-{#        <img src="static/images/snoopy.jpg" alt="Profile" class="profile-img">#}
-          <div class="card-header">Profile Image</div>
-          <div class="profile-img">
-            src="{{ url_for('static', filename='images/snoopy.jpg') }}"
+                  <label for="age_input">Enter your age -</label>
+                  <input type="number" id="age_input" min="15" max="100" required>
+                  <br><br>
+
+                  <label for="weight_input">Enter your weight -</label>
+                  <input type="number" id="weight_input" min="10" max="200" required>
+                  <br><br>
+
+                  <label for="goal_input">Enter your goal -</label>
+                  <select id="goal_input" name="goal-type">
+                    <option value="BulkUp">Bulk Up</option>
+                    <option value="TrimDown">Trim Down</option>
+                    <option value="StayAsIs">Stay same</option>
+                  </select>
+
+                  <br><br>
+                    <label for="target_date_input">Enter your target date -</label>
+                    <input type="text" id="target_date_input" placeholder="MM/DD/YYYY" pattern="(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}" title="Enter a date in MM/DD/YYYY format">
+                    <small>Format: MM/DD/YYYY</small>
+                </form>
               </div>
+            </div>
+          <div class="col-sm-4">
+              <button type="button" class="btn btn-primary" id="saveGoalButton"
+                style="background-color: white; color: black; margin-top: 15px;">
+                Save my goal
+              </button>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="col-sm-4">
-      <div class="card text-center">
-        <div class="card-header">Profile Details</div>
-        <p class="text-left"><strong>Name:</strong> John Doe</p>
-        <p class="text-left"><strong>Age:</strong> 33</p>
-        <p class="text-left"><strong>Weight:</strong> 170 lbs</p>
-      </div>
-    </div>
-
-    <div class="col-sm-4">
-      <div class="card text-center">
-        <div class="card-header">Goal</div>
-        <p class="text-left"><strong>Goal:</strong> Lose 10 lbs</p>
-        <p class="text-left"><strong>Target Date:</strong> 2025-06-30</p>
-        <p class="text-left"><strong>Days Left:</strong> 75</p>
-      </div>
-    </div>
-
-  </div>
-<br><br>
-
-  <!-- Second Row: Chart -->
-  <div class="row">
-    <div class="col-sm-8">
-      <div class="card">
-        <div class="card-header">Progress Chart</div>
-        <canvas id="myChart" height="400" width="700"></canvas>
-      </div>
-    </div>
-<br><br><br>
-      <div class="col-sm-4">
-
-      <button type="button" class="btn btn-primary" style="background-color:white; color:black; ">Add Edit my goal</button>
-      </div>
-  </div>
-</div>
 {% endblock %}

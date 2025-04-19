@@ -24,6 +24,6 @@ function drawChart() {
     height: 400
   };
 
-  const chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+  const chart = new google.visualization.LineChart(document.getElementById('myChart'));
   chart.draw(data, options);
 }
