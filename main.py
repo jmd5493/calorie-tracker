@@ -59,27 +59,126 @@ def home():
 
 @app.route("/profile")
 def profile():
-    return render_template("profile.html")
+    try:
+        # Connect to the database
+        cursor, connection = util.connect_to_db(username, password, host, port, database)
+        print("entered profile page")
+
+        # Fetch all records from the Profile table
+        query = "SELECT name, Age, Weight, Goal, Target_date FROM Profile"
+        print("Prepared query:", query)
+
+        cursor.execute(query)
+        profile = cursor.fetchone()
+
+        target_date = profile[4]  # The Target_date column from the database (as a string)
+        current_date = datetime.now().date()
+
+        # Calculate the difference in days
+        days_remaining = (target_date - current_date).days
+        profile = profile + (days_remaining,)
+
+        print("Profiles fetched from the database:", profile)
+
+    except Exception as e:
+        print("Error while fetching profiles:", str(e))
+        profiles = None  # Set profiles to empty in case of error
+
+    finally:
+        # Disconnect from the database
+        util.disconnect_from_db(connection, cursor)
+
+    # Pass the fetched profile to the template
+    return render_template('profile.html', profile=profile)
+
 
 @app.route('/edit_goal')
 def edit_goal():
     return render_template('AddEditGoal.html')
 
-@app.route('/save_goal', methods=['POST'])
+@app.route('/api/save_goal', methods=['POST'])
 def save_goal():
-    conn = sqlite3.connect('calorie_tracker.db')
-    cursor = conn.cursor()
+    # this is your save goal page
 
-    # Create the data in goal table if not exist
-    cursor.execute("Insert into goal (user_id, target_calories, target_date, goal_type) values (1, 2000, '6/30/25', 'Bulk up')")
-    conn.commit()
+    # Get form data
+    name = request.form.get('name', '').strip()  # Strip whitespace
+
+    age = int(request.form.get('age', 0))  # Default to 0 if not provided
+    weight = int(request.form.get('weight', 0))
+
+    goal = request.form.get('goal-type', '').strip()
+
+    try:
+        target_date = datetime.strptime(request.form.get('target_date', ''), '%m/%d/%Y').strftime('%Y-%m-%d')
+    except ValueError:
+        target_date = None
+
+    # connect to DB
+    cursor, connection = util.connect_to_db(username, password, host, port, database)
+
+    # chck if the record exist
 
     # Retrieve data from database to display in profile page.
-    cursor.execute("Select * FROM goal")
-    data = cursor.fetchall()
+    # execute SQL commands
+    record = util.run_and_fetch_sql(cursor, "SELECT * from profile;")
+    print(record)
 
-    conn.close()
-    return render_template("profile.html",data=data)
+    print('There is no record in the database - creating a new record')
+    try:
+        query = """
+        INSERT INTO Profile (user_id, name, age, goal, weight, target_date)
+        VALUES (%s, %s, %s, %s, %s, %s)
+        """
+        values = (1, name, age, goal, weight, target_date)
+
+        print("Prepared query:", query)
+        print("With values:", values)
+
+        cursor.execute(query, values)
+        connection.commit()
+
+        # util.run_and_fetch_sql(cursor, query, values)
+    except Exception as e:
+        print("Error while inserting data:", str(e))
+
+    # if record == -1:
+    #     # if rec does NOT exist then create a new record
+    #     print('There is no record in the database - creating a new record')
+    #     util.run_and_fetch_sql(cursor, "INSERT INTO Profile(name, Age, Weight, Goal, Target_date) VALUES('"+name+"', "+age+", "+weight+", "+goal+", "+target_date+");")
+    #     # ("INSERT INTO Profile(name, Age, Weight, Goal, Target_date) VALUES('Alice', 25, 65, 'TrimDown', '2025-06-01');")
+    # else:
+    #     # Rec do exist update the values
+    #     # if rec exist then update the existing record with values
+    #     print('There isexisting profile/goal record in the database, Updating the values')
+    #     util.run_and_fetch_sql(cursor,
+    #                        "UPDATE Profile SET name = '" + name +
+    #                        "', Age = " + age +
+    #                        ", Weight = " + weight +
+    #                        ", Goal = '" + goal +
+    #                        "', Target_date = '" + target_date +
+    #                        "' WHERE User_Id = " + 1 + ";"
+    #                        )
+
+    # Retrieve data from database to display in profile page.
+    # execute SQL commands
+    record = util.run_and_fetch_sql(cursor, "SELECT * from profile;")
+    print(record)
+
+    if record == -1:
+        # you can replace this part with a 404 page
+        print('Something is wrong with the SQL command')
+    else:
+        # this will return all column names of the select result table
+        # ['customer_id','store_id','first_name','last_name','email','address_id','activebool','create_date','last_update','active']
+        col_names = [desc[0] for desc in cursor.description]
+        # only use the first five rows
+        log = record[:5]
+        # log=[[1,2],[3,4]]
+    # disconnect from database
+    util.disconnect_from_db(connection, cursor)
+    # using render_template function, Flask will search
+    # the file named index.html under templates folder
+    return render_template('profile.html', data=record)
 
 @app.route("/tracker")
 def tracker():
