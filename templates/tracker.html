@@ -17,72 +17,144 @@ content %}
     </div>
     <div class="col">
       <!-- 2 of 3 -->
+      <button type="button" data-toggle="modal" class="btn btn-primary" data-target="#add_entry">Add Entry</button>
+      <div class="modal fade" id="add_entry" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Add food entry</h4>
+            </div>
+            <form action="{{url_for('add_entry')}}" method="post">
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="food_name" class="col-xs-2 control-label">Food Name</label>
+                        <div class="col-xs-10">
+                            <input type="text" id="food_name" class="form-control" name="food_name" placeholder="food_name" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="calories" class="col-xs-2 control-label">Calories</label>
+                        <div class="col-xs-10">
+                            <input type="number" class="form-control" name="calories" placeholder="calories" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="date" class="col-xs-2 control-label">Date</label>
+                        <div class="col-xs-10">
+                            <input type="date" class="form-control" name="date" placeholder="date" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+            </form>
+        </div>
+      </div>
+  </div>
     </div>
     <div class="col">
-      <!-- Button trigger modal -->
-      <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Entry</button>
-      </div>
+      <!-- 2 of 3 -->
     </div>
     <div class="row">
       <div class="col">
         <h5>Food Entries</h5>
-        <table>
+        <table class="table" border="1">
           <thead>
             <tr>
+              <th>ID</th>
               <th>User</th>
               <th>Food</th>
               <th>Calories</th>
               <th>Date</th>
+              <th>Update</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
             {% for d in data %}
             <tr>
+              <td>{{d.id}}</td>
               <td>{{d.user_id}}</td>
               <td>{{d.food_name}}</td>
               <td>{{d.calories}}</td>
               <td>{{d.date}}</td>
+              <td><button type="button" class="btn btn-success" data-toggle="modal" data-target="#update_entry_{{d['id']}}">Update</button></td>
+              <div class="modal fade" id="update_entry_{{d['id']}}" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel">Update an entry</h4>
+                    </div>
+                    <form action="{{url_for('update_entry', id=d['id'])}}" method="post">
+                    <div class="modal-body">
+                      <div class="form-group row">
+                        <label for="food_name" class="col-xs-2 control-label">Food</label>
+                        <div class="col-xs-10">
+                            <input type="text" id="food_name" class="form-control" name="food_name"
+                                value="{{d['food_name']}}" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="calories" class="col-xs-2 control-label">Calories</label>
+                        <div class="col-xs-10">
+                            <input type="number" class="form-control" name="calories" value="{{d['calories']}}" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="author" class="col-xs-2 control-label">Date</label>
+                        <div class="col-xs-10">
+                            <input type="date" class="form-control" name="date"
+                                value="{{d['date']}}" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                        data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+              <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_entry_{{d['id']}}">Delete</button></td>
+              <div class="modal fade" id="delete_entry_{{d['id']}}" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel">Delete an entry</h4>
+                    </div>
+                    <form action="{{url_for('delete_entry', id=d['id'])}}" method="post">
+                    <div class="modal-body">
+                      <div class="form-group row">
+                        <label class="col-sm-12 col-form-label">Do you want to delete the entry <span
+                                style='font-weight:bold;color:red'>{{d['food_name']}}</span>
+                            ?</label>
+
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-danger">Delete</button>
+                    </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
             </tr>
             {% endfor %}
           </tbody>
         </table>
       </div>
+      <div class="col">
+      </div>
     </div>
-  </div>
-   		
 
 
-		<!-- Add Entry -->
-		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  			<div class="modal-dialog">
-    			<div class="modal-content">
-      				<div class="modal-header">
-        				<h5 class="modal-title" id="exampleModalLabel">Add Food Item</h5>
-        				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      				</div>
-      				<div class="modal-body">
-      					<form>
-                  <div class="form-group">
-                    <label for="the_date">Date:</label>
-                    <input type="date" class="form-control" id=the_date placeholder="Enter Date">
-                  </div>
-      						<div class="form-group">
-      							<label for="ItemName">Item Name:</label>
-      							<input type="text" class="form-control" id=ItemName placeholder="Enter Food">
-      						</div>
-      						<div class="form-group">
-      							<label for="Calories">Calories:</label>
-      							<input type="number" class="form-control" id=Calories placeholder="Enter calories">
-      						</div>
-      					</form>
-      				</div>
-      				<div class="modal-footer">
-        				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        				<button type="button" class="btn btn-primary">Submit</button>
-      				</div>
-    			</div>
-  			</div>
-		</div>
 {% endblock %}
 
