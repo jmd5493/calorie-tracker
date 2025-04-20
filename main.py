@@ -198,7 +198,7 @@ def add_entry():
     db.session.commit()
     return redirect(url_for("tracker"))
 
-@app.route("/update_entry/<int:id>", methods=['PUT'])
+@app.route("/update_entry/<int:id>", methods=['POST'])
 def update_entry(id):
     food = FoodEntry.query.get(id)
     food.food_name = request.form.get('food_name', food.food_name)
@@ -207,7 +207,7 @@ def update_entry(id):
     db.session.commit()
     return redirect(url_for("tracker"))
 
-@app.route("/delete_entry/<int:id>", methods=['DELETE'])
+@app.route("/delete_entry/<int:id>", methods=['POST'])
 def delete_entry(id):
     food = FoodEntry.query.get(id)
     db.session.delete(food)
