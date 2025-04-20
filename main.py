@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date
+from datetime import datetime
 import os
 import sqlite3
 import util
@@ -80,14 +81,39 @@ def save_goal():
     conn.close()
     return render_template("profile.html",data=data)
 
-@app.route("/tracker", methods=['GET'])
+@app.route("/tracker")
 def tracker():
-    conn = sqlite3.connect('calorie_tracker.db')
-    cursor = conn.cursor()
-    cursor.execute("Select * FROM food_entry")
-    data = cursor.fetchall()
-    conn.close()
+    user_id = 1
+    data = FoodEntry.query.filter_by(user_id=user_id).order_by(FoodEntry.date).all()
     return render_template("tracker.html", data=data)
+
+@app.route("/add_entry/", methods=['POST'])
+def add_entry():
+    food = FoodEntry(user_id=1,
+                     food_name=request.form.get('food_name'),
+                     calories=int(request.form.get('calories')),
+                     date=datetime.strptime(request.form.get('date'), '%Y-%m-%d')
+                     )
+
+    db.session.add(food)
+    db.session.commit()
+    return redirect(url_for("tracker"))
+
+@app.route("/update_entry/<int:id>", methods=['PUT'])
+def update_entry(id):
+    food = FoodEntry.query.get(id)
+    food.food_name = request.form.get('food_name', food.food_name)
+    food.calories = request.form.get('calories', food.calories)
+    food.date = datetime.strptime(request.form.get('date', food.date), '%Y-%m-%d')
+    db.session.commit()
+    return redirect(url_for("tracker"))
+
+@app.route("/delete_entry/<int:id>", methods=['DELETE'])
+def delete_entry(id):
+    food = FoodEntry.query.get(id)
+    db.session.delete(food)
+    db.session.commit()
+    return redirect(url_for("tracker"))
 
 @app.route("/test-db")
 def test_db():
