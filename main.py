@@ -77,7 +77,16 @@ def test_db():
 #     Goal.query.delete()
 #     db.session.commit()
 #     return "<h3>✅ All data wiped from FoodEntry and Goal tables.</h3>"
+# default page for 404 error
+@app.errorhandler(404)
+def page_not_found(e):
+	return render_template('404_error.html'), 404
 
+# default page for 500 error
+@app.errorhandler(500)
+def server_error(e):
+	print(e)
+	return render_template('500_error.html'), 500
 
 # ---------- ENTRY POINT ----------
 if __name__ == '__main__':

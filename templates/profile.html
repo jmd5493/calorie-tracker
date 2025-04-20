@@ -1,5 +1,10 @@
-{% extends "base.html" %} {% block title %}Page Title Here{% endblock %} {%
-block content %}
+{% extends "base.html" %}
+{% block extrajs %}
+<!-- You should place your js files here -->
+<!-- e.g. <script src="/static/js/index.js"></script> -->
+{% endblock%}
+{% block title %}Page Title Here{% endblock %}
+{% block content %}
 <!-- content goes here -->
 
 <div class="container" style="background-color:#87CEFA;">
@@ -174,6 +179,5 @@ block content %}
       console.log("Completed the classmate_data_processing function : "+num_human+num_vampire);
 
     }
-
   </script>
 {% endblock %}
