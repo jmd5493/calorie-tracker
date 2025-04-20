@@ -3,7 +3,7 @@ from psycopg2 import Error
 
 
 # this function is based on the tutorial at: https://pynative.com/python-postgresql-tutorial/
-def connect_to_db(username='raywu1990', password='test', host='127.0.0.1', port='5432', database='dvdrental'):
+def connect_to_db(username='postgres', password='admin', host='127.0.0.1', port='5432', database='calorie_tracker'):
     try:
         # Connect to an existing database
         connection = psycopg2.connect(user=username,

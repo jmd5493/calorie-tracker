@@ -54,6 +54,10 @@
         style="background-color: white; color: black; margin-top: 15px;">
         Add/Edit my goal
       </button>
+      <button type="button" class="btn btn-primary" id="getSampleData"
+        style="background-color: white; color: black; margin-top: 15px;">
+        sample DB data
+      </button>
 <!--        <div id="chart_div"></div>-->
       </div>
   </div>
@@ -64,6 +68,11 @@
             console.log("Add/Edit Goal button clicked!"); // Debugging log
             window.location.href = "/edit_goal";
 
+        });
+
+        document.getElementById('getSampleData').addEventListener('click', function () {
+            console.log("getSampleData button clicked!"); // Debugging log
+            window.location.href = "/getSampleData";
         });
     });
   </script>
