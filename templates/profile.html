@@ -20,18 +20,18 @@
     <div class="col-sm-4">
       <div class="card text-center">
         <div class="card-header">Profile Details</div>
-        <p class="text-left"><strong>Name:</strong> John Doe</p>
-        <p class="text-left"><strong>Age:</strong> 33</p>
-        <p class="text-left"><strong>Weight:</strong> 170 lbs</p>
+        <p class="text-left"><strong>Name:</strong>  {{ profile[0] }}</p>
+        <p class="text-left"><strong>Age:</strong> {{ profile[1] }}</p>
+        <p class="text-left"><strong>Weight:</strong> {{ profile[2] }} lbs</p>
       </div>
     </div>
 
     <div class="col-sm-4">
       <div class="card text-center">
         <div class="card-header">Goal</div>
-        <p class="text-left"><strong>Goal:</strong> Lose 10 lbs</p>
-        <p class="text-left"><strong>Target Date:</strong> 2025-06-30</p>
-        <p class="text-left"><strong>Days Left:</strong> 75</p>
+        <p class="text-left"><strong>Goal:</strong> {{ profile[3] }}</p>
+        <p class="text-left"><strong>Target Date:</strong> {{ profile[4] }}</p>
+        <p class="text-left"><strong>Days Left:</strong> {{ profile[5] }}</p>
       </div>
     </div>
   </div>

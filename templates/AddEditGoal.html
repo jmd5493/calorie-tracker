@@ -4,7 +4,8 @@ block content %}
   <script>
   $(document).ready(function (){
     // Add event listener to the button
-    document.getElementById('saveGoalButton').addEventListener('click', function (event) {
+
+    /*document.getElementById('saveGoalButton').addEventListener('click', function (event) {
         console.log("Button clicked");
         // Prevent default action to avoid interference
         event.preventDefault();
@@ -20,7 +21,7 @@ block content %}
             console.log("Save button clicked!");
             window.location.href = "/profile";
         }
-    });
+    }); */
   });
   </script>
  <div class="container" style="background-color:#87CEFA;">
@@ -37,39 +38,40 @@ block content %}
             <div class="card-header">Profile Details</div>
             <br><br>
               <div class="text-left">
-                <form>
-                  <label for="name_input">Enter your name -</label>
-                  <input type="text" id="name_input" required>
-                  <br><br>
-
-                  <label for="age_input">Enter your age -</label>
-                  <input type="number" id="age_input" min="15" max="100" required>
-                  <br><br>
-
-                  <label for="weight_input">Enter your weight -</label>
-                  <input type="number" id="weight_input" min="10" max="200" required>
-                  <br><br>
-
-                  <label for="goal_input">Enter your goal -</label>
-                  <select id="goal_input" name="goal-type">
-                    <option value="BulkUp">Bulk Up</option>
-                    <option value="TrimDown">Trim Down</option>
-                    <option value="StayAsIs">Stay same</option>
-                  </select>
-
-                  <br><br>
-                    <label for="target_date_input">Enter your target date -</label>
-                    <input type="text" id="target_date_input" placeholder="MM/DD/YYYY" pattern="(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}" title="Enter a date in MM/DD/YYYY format">
-                    <small>Format: MM/DD/YYYY</small>
+                <form action="/api/save_goal" method="POST">
+                    <div>
+                      <label for="name_input">Enter your name -</label>
+                      <input type="text" id="name_input" name="name" required>
+                    </div>
+                    <br><br>
+                    <div>
+                      <label for="age_input" name="age">Enter your age -</label>
+                      <input type="number" id="age_input" min="15" max="100" required>
+                      <br><br>
+                    </div>
+                    <div>
+                      <label for="weight_input">Enter your weight -</label>
+                      <input type="number" id="weight_input" name="weight" min="10" max="200" required>
+                      <br><br>
+                    </div>
+                    <div>
+                      <label for="goal_input">Enter your goal -</label>
+                      <select id="goal_input" name="goal-type">
+                        <option value="BulkUp">Bulk Up</option>
+                        <option value="TrimDown">Trim Down</option>
+                        <option value="StayAsIs">Stay same</option>
+                      </select>
+                    </div>
+                    <br><br>
+                    <div>
+                        <label for="target_date_input">Enter your target date -</label>
+                        <input type="text" id="target_date_input" name="target_date" placeholder="MM/DD/YYYY" pattern="(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}" title="Enter a date in MM/DD/YYYY format">
+                        <small>Format: MM/DD/YYYY</small>
+                    </div>
+                    <button type="Submit">Save my goal</button>
                 </form>
               </div>
             </div>
-          <div class="col-sm-4">
-              <button type="button" class="btn btn-primary" id="saveGoalButton"
-                style="background-color: white; color: black; margin-top: 15px;">
-                Save my goal
-              </button>
-          </div>
         </div>
       </div>
     </div>
