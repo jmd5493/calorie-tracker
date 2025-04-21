@@ -168,7 +168,7 @@ def save_goal():
     # Get form data
     name = request.form.get('name', '').strip()  # Strip whitespace
 
-    age = int(request.form.get('age', 0))  # Default to 0 if not provided
+    age = int(request.form.get('age', 32))  # Default to 0 if not provided
     weight = int(request.form.get('weight', 0))
 
     goal = request.form.get('goal-type', '').strip()
@@ -194,7 +194,7 @@ def save_goal():
         INSERT INTO Profile (user_id, name, age, goal, weight, target_date)
         VALUES (%s, %s, %s, %s, %s, %s)
         """
-        values = (1, name, age, goal, weight, target_date)
+        values = (2, name, age, goal, weight, target_date)
 
         print("Prepared query:", query)
         print("With values:", values)
@@ -243,7 +243,7 @@ def save_goal():
     util.disconnect_from_db(connection, cursor)
     # using render_template function, Flask will search
     # the file named index.html under templates folder
-    return render_template('profile.html', data=record)
+    return render_template('profile.html', profile=profile)
 
 @app.route("/tracker")
 def tracker():
