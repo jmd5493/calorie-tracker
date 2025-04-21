@@ -43,17 +43,18 @@ class FoodEntry(db.Model):
 # ---------- ROUTES ----------
 @app.route("/")
 def home():
-    user_id = 1  # Simulating a logged-in user
+    user_id = 1  
     goal = None
     cursor = None
     connection = None
 
     try:
-        # ✅ Use default credentials from util.py — no need to pass anything
+        # Use default credentials from util.py — no need to pass anything
         cursor, connection = util.connect_to_db()
 
         if not cursor or not connection:
             raise Exception("Database connection failed.")
+        
 
         # Query the database for the user's goal
         query = """
@@ -90,14 +91,14 @@ def home():
         total = sum(entry[1] for entry in entries)
         food_log = [f"{entry[0]} - {entry[1]} cal" for entry in entries]
 
-        # Placeholder for chart (optional: update with real data)
+        # Placeholder for chart )update with real data)
         calorie_history = {
             "labels": ["2/20", "2/27", "3/6", "3/13", "3/20"],
             "values": [1200, 1400, 2000, 1800, 1900]
         }
 
     except Exception as e:
-        print("❌ Error fetching home data:", str(e))
+        print(" Error fetching home data:", str(e))
         goal = None
         total = 0
         food_log = []
