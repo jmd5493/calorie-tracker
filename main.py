@@ -43,19 +43,81 @@ class FoodEntry(db.Model):
 # ---------- ROUTES ----------
 @app.route("/")
 def home():
-    user_id = 1
-    goal = Goal.query.filter_by(user_id=user_id).first()
-    today = date.today()
-    entries = FoodEntry.query.filter_by(user_id=user_id, date=today).all()
-    total = sum(e.calories for e in entries)
-    food_log = [f"{e.food_name} - {e.calories} cal" for e in entries]
+    user_id = 1  # Simulating a logged-in user
+    goal = None
+    cursor = None
+    connection = None
 
-    calorie_history = {
-        "labels": ["2/20", "2/27", "3/6", "3/13", "3/20"],
-        "values": [1200, 1400, 2000, 1800, 1900]
-    }
+    try:
+        # ✅ Use default credentials from util.py — no need to pass anything
+        cursor, connection = util.connect_to_db()
 
-    return render_template("home.html", goal=goal, total_consumed=total, food_log=food_log, calorie_history=calorie_history)
+        if not cursor or not connection:
+            raise Exception("Database connection failed.")
+
+        # Query the database for the user's goal
+        query = """
+        SELECT goal_type, target_date, target_calories
+        FROM "Goal"
+        WHERE user_id = %s
+        """
+
+        cursor.execute(query, (user_id,))
+        goal_data = cursor.fetchone()
+
+        if goal_data:
+            target_date = goal_data[1].strftime('%B %d, %Y') if isinstance(goal_data[1], date) else goal_data[1]
+            goal = {
+                "goal_type": goal_data[0],
+                "target_date": target_date,
+                "target_calories": goal_data[2]
+            }
+
+        # Query for today's food entries
+        today = date.today()
+        print("Today (Python):", today)
+        query = """
+        SELECT food_name, calories
+        FROM "FoodEntry"
+        WHERE user_id = %s AND date = %s
+        """
+
+        cursor.execute(query, (user_id, today))
+        entries = cursor.fetchall()
+        print("Fetched entries:", entries)
+
+        # Calculate total calories and build the food log
+        total = sum(entry[1] for entry in entries)
+        food_log = [f"{entry[0]} - {entry[1]} cal" for entry in entries]
+
+        # Placeholder for chart (optional: update with real data)
+        calorie_history = {
+            "labels": ["2/20", "2/27", "3/6", "3/13", "3/20"],
+            "values": [1200, 1400, 2000, 1800, 1900]
+        }
+
+    except Exception as e:
+        print("❌ Error fetching home data:", str(e))
+        goal = None
+        total = 0
+        food_log = []
+        calorie_history = {
+            "labels": [],
+            "values": []
+        }
+
+
+    finally:
+        if connection and cursor:
+            util.disconnect_from_db(connection, cursor)
+
+    return render_template(
+        "home.html",
+        goal=goal,
+        total_consumed=total,
+        food_log=food_log,
+        calorie_history=calorie_history
+    )
 
 @app.route("/profile")
 def profile():

@@ -20,6 +20,7 @@ def connect_to_db(username='postgres', password='admin', host='127.0.0.1', port=
 
     except (Exception, Error) as error:
         print("Error while connecting to PostgreSQL", error)
+        return None, None
 
 
 def disconnect_from_db(connection, cursor):

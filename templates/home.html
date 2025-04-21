@@ -1,5 +1,6 @@
-{% extends "base.html" %} {% block title %}Homepage{% endblock %} {% block
-content %}
+{% extends "base.html" %}
+{% block title %}Homepage{% endblock %}
+{% block content %}
 <div class="container mt-4">
   <!-- Welcome Heading -->
   <div class="text-center mb-4">
@@ -24,29 +25,6 @@ content %}
           <p>{{ goal.goal_type }}</p>
           <p><strong>Target Date:</strong> {{ goal.target_date }}</p>
           <p><strong>Target Calories:</strong> {{ goal.target_calories }}</p>
-
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-body">
-          <!-- Placeholder for chart -->
-          <h6 class="text-center">Progress Chart</h6>
-          <div class="card mt-3">
-            <div class="card-body">
-              <h6 class="text-center mb-3">Progress Chart</h6>
-                <canvas id="progressChart" height="150"></canvas>
-              <script id="chartLabels" type="application/json">
-                {{ calorie_history["labels"]|tojson }}
-              </script>
-              <script id="chartValues" type="application/json">
-                {{ calorie_history["values"]|tojson }}
-              </script>
-
-
-          </div>
-      </div>
-
         </div>
       </div>
     </div>
@@ -65,30 +43,45 @@ content %}
         </div>
         <div class="col-md-6">
           <div class="card h-100">
-            <div
-              class="card-body d-flex align-items-center justify-content-center"
-            >
+            <div class="card-body d-flex align-items-center justify-content-center">
               <blockquote class="blockquote text-center mb-0">
-                <p>
-                  "Whether you believe you can or you believe you can't, you are
-                  always right."
-                </p>
+                <p>"Whether you believe you can or you believe you can't, you are always right."</p>
               </blockquote>
             </div>
           </div>
         </div>
       </div>
 
+      <!-- Food Log -->
       <div class="card">
         <div class="card-body">
           <h5><strong>Food Log:</strong></h5>
           {% for entry in food_log %}
             <p>{{ entry }}</p>
           {% endfor %}
-
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Progress Chart -->
+<div class="row mt-5 pt-4">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="text-center mb-3">Progress Chart</h5>
+        <div class="d-flex justify-content-center">
+          <canvas id="progressChart" height="300" width="1000"></canvas>
+        </div>
+        <script id="chartLabels" type="application/json">
+          {{ calorie_history["labels"] | tojson }}
+        </script>
+        <script id="chartValues" type="application/json">
+          {{ calorie_history["values"] | tojson }}
+        </script>
+      </div>
+    </div>
+  </div>
 </div>
+
 {% endblock %}
