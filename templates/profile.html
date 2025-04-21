@@ -13,7 +13,7 @@
 
     <div class="col-sm-4">
       <div class="card text-center">
-       <img src="{{ url_for('static', filename='images/snoopy.jpg') }}" alt="Profile" class="profile-img">
+       <img src="{{ url_for('static', filename='images/profile_pic.png') }}" alt="Profile" class="profile-img">
       </div>
     </div>
 
@@ -172,6 +172,7 @@
               var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
               console.log("Completed the drawChart function");
               chart.draw(data, options);
+              $('#editGoal').hide();
             }
 
     }
