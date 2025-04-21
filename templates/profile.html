@@ -44,20 +44,19 @@
         <div class="card-header">Progress Chart</div>
 <!--        <canvas id="myChart" height="400" width="700">-->
           <!--Div that will hold the pie chart-->
-          <div id="chart_div"></div>
+          <div id="chart_div" data-profile-exists="{{ profile_exists }}"></div>
 <!--        </canvas>-->
       </div>
     </div>
-    <br><br><br>
       <div class="col-sm-4">
       <button type="button" class="btn btn-primary" id="editGoal"
         style="background-color: white; color: black; margin-top: 15px;">
         Add/Edit my goal
       </button>
-      <button type="button" class="btn btn-primary" id="getSampleData"
-        style="background-color: white; color: black; margin-top: 15px;">
-        sample DB data
-      </button>
+{#      <button type="button" class="btn btn-primary" id="getSampleData"#}
+{#        style="background-color: white; color: black; margin-top: 15px;">#}
+{#        sample DB data#}
+{#      </button>#}
 <!--        <div id="chart_div"></div>-->
       </div>
   </div>
@@ -131,7 +130,7 @@
       // classmate_data_processing(data);
       // console.log( data);
 
-      data.addColumn('string', 'Time');
+      data.addColumn('string', 'day');
       data.addColumn('number', 'Calorie Consumed');
       data.addColumn('number', 'Calorie Burned');
 
@@ -147,7 +146,7 @@
       ]);
 
       const options = {
-        title: 'Calories consumed vs Calorie burned Over Time',
+        title: 'Calories consumed vs Calorie burned Over days',
         curveType: 'function',
         legend: { position: 'bottom' },
         width: 600,
@@ -155,10 +154,26 @@
       };
 
       // Instantiate and draw our chart, passing in some options.
-      // var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-      console.log("Entered the drawChart function");
-      chart.draw(data, options);
+      // Check the data-profile-exists attribute
+            var profileExists = $('#chart_div').data('profile-exists');
+            console.log("Entered chart display section")
+            console.log("profile exist -"+profileExists);
+            // Hide the chart if no profile exists
+            if (profileExists=='False') {
+                console.log("No profile exists");
+                $('#chart_div').html("Please add your goal to see the chart"); // Display a message
+                $('#chart_div').css("color", "red"); // Make the message red
+                $('#chart_div').css("font-size", "20px"); // Make the message larger
+                $('#chart_div').css("text-align", "center"); // Center the message
+                $('#chart_div').css("margin-top", "100px"); // Move the message up
+                $('#chart_div').css("margin-bottom", "100px"); // Move the message down
+                $('#chart_div').css("font-weight", "bold"); // Make the message bold
+            }else{
+              var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+              console.log("Completed the drawChart function");
+              chart.draw(data, options);
+            }
+
     }
 
      // model of MVC
@@ -178,15 +193,13 @@
           num_human ++;
         }
       }
-      // Create the data table.
-      result_data.addColumn('string', 'Element');
-      result_data.addColumn('number', 'Count');
-      result_data.addRows([
-        ['Human', num_human],
-        ['Vampire', num_vampire]
-      ]);
-      console.log("Completed the classmate_data_processing function : "+num_human+num_vampire);
-
     }
   </script>
+    <script>
+        $(document).ready(function () {
+            console.log("Entered the document.ready function");
+
+        });
+    </script>
+
 {% endblock %}

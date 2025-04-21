@@ -144,14 +144,16 @@ def profile():
 
     except Exception as e:
         print("Error while fetching profiles:", str(e))
-        profiles = None  # Set profiles to empty in case of error
+        profile = None  # Set profiles to empty in case of error
 
     finally:
         # Disconnect from the database
         util.disconnect_from_db(connection, cursor)
 
-    # Pass the fetched profile to the template
-    return render_template('profile.html', profile=profile)
+    # profile = None
+    profile_exists = profile is not None
+    print(" profile exist -->", profile_exists)
+    return render_template('profile.html', profile=profile, profile_exists=profile_exists)
 
 
 @app.route('/edit_goal')
