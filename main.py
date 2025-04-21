@@ -84,8 +84,11 @@ def save_goal():
 @app.route("/tracker")
 def tracker():
     user_id = 1
+    today = date.today()
     data = FoodEntry.query.filter_by(user_id=user_id).order_by(FoodEntry.date).all()
-    return render_template("tracker.html", data=data)
+    todays_data = FoodEntry.query.filter_by(user_id=user_id, date=today).all()
+    total = sum(e.calories for e in todays_data)
+    return render_template("tracker.html", total_consumed=total, data=data)
 
 @app.route("/add_entry/", methods=['POST'])
 def add_entry():
