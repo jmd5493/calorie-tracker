@@ -53,11 +53,9 @@
         style="background-color: white; color: black; margin-top: 15px;">
         Add/Edit my goal
       </button>
-{#      <button type="button" class="btn btn-primary" id="getSampleData"#}
-{#        style="background-color: white; color: black; margin-top: 15px;">#}
-{#        sample DB data#}
-{#      </button>#}
-<!--        <div id="chart_div"></div>-->
+          <div class="card">
+        <div class="card-header">D3 Map visualization</div>
+          <svg width="500" height="300"></svg>
       </div>
   </div>
 </div>
@@ -79,40 +77,7 @@
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript">
     console.log("Entered the chart code blcok");
-    // array of json objects
-    var classmate_data = [
-      {
-        'name'      : 'John',
-        'shadow'    : 'no',
-        'galic'     : 'no',
-        'complexion': 'pale'
-      },
-      {
-        'name'      : 'Lee',
-        'shadow'    : 'yes',
-        'galic'     : 'no',
-        'complexion': 'pale'
-      },
-      {
-        'name'      : 'Emma',
-        'shadow'    : 'no',
-        'galic'     : 'yes',
-        'complexion': 'brown'
-      },
-      {
-        'name'      : 'Ava',
-        'shadow'    : 'yes',
-        'galic'     : 'yes',
-        'complexion': 'olive '
-      },
-      {
-        'name'      : 'Alex',
-        'shadow'    : 'no',
-        'galic'     : 'no',
-        'complexion': 'brown'
-      },
-    ]; // demo in console how to access each element
-       // e.g. classmate_data[0]['name']
+
 
     // Load the Visualization API and the corechart package.
     google.charts.load('current', {'packages':['corechart']});
@@ -201,6 +166,34 @@
             console.log("Entered the document.ready function");
 
         });
+    </script>
+    <script>
+    
+const width = 400;
+const height = 400;
+
+const svg = d3.select("svg");
+
+const projection = d3.geoMercator()
+    .scale(1000)
+    .center([69, 34])
+    .translate([width / 2, height / 2]);
+
+const path = d3.geoPath().projection(projection);
+d3.json("{{ url_for('static', filename='input/world.geojson') }}").then(function(data) {
+    const afghanistan = data.features.find(d => d.properties.name === "Afghanistan");
+
+    if (afghanistan) {
+        svg.append("path")
+            .datum(afghanistan)
+            .attr("d", path)
+            .attr("fill", "orange")
+            .attr("stroke", "black")
+            .attr("stroke-width", 3);
+    } else {
+        console.log("Afghanistan not found in the data!");
+    }
+});
     </script>
 
 {% endblock %}
